@@ -15,6 +15,7 @@ export interface FloatingTextItem {
   text: string;
   x: number;
   y: number;
+  isCritical?: boolean;
 }
 
 export interface Enemy {
@@ -30,29 +31,24 @@ export type BattlePhase =
   | 'boss_failed'
   | 'stage_clear';
 
-export type TabType = 'main' | 'prestige';
+export type TabType = 'main' | 'prestige' | 'settings';
 
-// 永続アップグレード定義
 export interface PrestigeUpgrade {
   id: string;
   name: string;
   emoji: string;
   description: string;
-  baseCost: number;       // 結晶コスト（初期）
+  baseCost: number;
   level: number;
   maxLevel: number;
-  // コスト計算: baseCost * (level + 1) で線形増加
 }
 
 export interface GameState {
-  // リソース
   souls: Decimal;
-  totalSoulsEver: Decimal;   // 累計（転生しても減らない）
-  clickPower: Decimal;       // base click power（バフ前）
+  totalSoulsEver: Decimal;
+  clickPower: Decimal;
   buildings: Building[];
   floatingTexts: FloatingTextItem[];
-
-  // ステージ・戦闘
   stage: number;
   killCount: number;
   killsToNext: number;
@@ -61,13 +57,11 @@ export interface GameState {
   bossTimeLeft: number;
   defeatStage: number;
   screenFlash: boolean;
-
-  // プレステージ
-  crystals: number;          // 所持次元結晶
+  crystals: number;
   prestigeUpgrades: PrestigeUpgrade[];
-  prestigeCount: number;     // 転生回数（演出用）
-
-  // UI
+  prestigeCount: number;
   activeTab: TabType;
   showPrestigeConfirm: boolean;
+  showStageClear: boolean;
+  lastSaveTime: number;   // Unix timestamp（ms）
 }

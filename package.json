@@ -10,7 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor/android": "^8.3.4",
+    "@capacitor/cli": "^8.3.4",
+    "@capacitor/core": "^8.3.4",
     "decimal.js": "^10.6.0",
+    "firebase": "^12.13.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   },

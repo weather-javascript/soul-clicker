@@ -8,19 +8,14 @@ interface Props {
 
 export function FloatingText({ item, onRemove }: Props) {
   useEffect(() => {
-    const timer = setTimeout(() => {
-      onRemove(item.id);
-    }, 900); // アニメーション時間と合わせる
-    return () => clearTimeout(timer);
-  }, [item.id, onRemove]);
+    const t = setTimeout(() => onRemove(item.id), item.isCritical ? 1200 : 900);
+    return () => clearTimeout(t);
+  }, [item.id, item.isCritical, onRemove]);
 
   return (
     <div
-      className="floating-text"
-      style={{
-        left: item.x,
-        top: item.y,
-      }}
+      className={`floating-text ${item.isCritical ? 'critical' : ''}`}
+      style={{ left: item.x, top: item.y }}
     >
       {item.text}
     </div>

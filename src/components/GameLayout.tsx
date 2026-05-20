@@ -9,13 +9,18 @@ import { EnemyArea } from './EnemyArea';
 import { BossWarning } from './BossWarning';
 import { PrestigeTab } from './PrestigeTab';
 import { TabBar } from './TabBar';
+import { SettingsTab } from './SettingsTab';
+import { OfflineBonusModal } from './OfflineBonusModal';
+import { StageClearBanner } from './StageClearBanner';
 
 export function GameLayout() {
   const {
     state, buffs, totalSps, effectiveClickPower, crystalPreview,
+    saveStatus, offlineBonus, userId,
     handleClick, removeFloatingText, buyBuilding, retryBoss,
     setTab, openPrestigeConfirm, closePrestigeConfirm,
     executePrestige, buyPrestigeUpgrade,
+    manualSave, manualLoad, hardReset, acceptOfflineBonus,
   } = useGameState();
 
   const clickerAreaRef = useRef<HTMLDivElement>(null);
@@ -35,14 +40,13 @@ export function GameLayout() {
 
   return (
     <div className={`game-root ${state.screenFlash ? 'screen-flash' : ''} ${isBossPhase ? 'boss-atmosphere' : ''}`}>
-      {/* ボス警告・敗北オーバーレイ */}
-      <BossWarning
-        battlePhase={state.battlePhase}
-        onRetry={retryBoss}
-        bossStage={state.defeatStage}
-      />
+      {/* オフラインボーナス */}
+      {offlineBonus && <OfflineBonusModal bonus={offlineBonus} onAccept={acceptOfflineBonus} />}
 
-      {/* 転生確認ダイアログ */}
+      {/* ボス関連オーバーレイ */}
+      <BossWarning battlePhase={state.battlePhase} onRetry={retryBoss} bossStage={state.defeatStage} />
+
+      {/* 転生確認 */}
       {state.showPrestigeConfirm && (
         <div className="confirm-overlay">
           <div className="confirm-dialog">
@@ -71,50 +75,33 @@ export function GameLayout() {
         {state.activeTab === 'main' && (
           <>
             <StageHeader
-              stage={state.stage}
-              killCount={state.killCount}
-              killsToNext={state.killsToNext}
-              battlePhase={state.battlePhase}
+              stage={state.stage} killCount={state.killCount}
+              killsToNext={state.killsToNext} battlePhase={state.battlePhase}
               bossTimeLeft={state.bossTimeLeft}
             />
-
-            <SoulDisplay
-              souls={state.souls}
-              totalSouls={state.totalSoulsEver}
-              sps={totalSps}
-            />
-
-            <EnemyArea
-              enemy={state.enemy}
-              stage={state.stage}
-              battlePhase={state.battlePhase}
-            />
+            <SoulDisplay souls={state.souls} totalSouls={state.totalSoulsEver} sps={totalSps} />
+            <EnemyArea enemy={state.enemy} stage={state.stage} battlePhase={state.battlePhase} />
 
             <div className="clicker-wrapper" ref={clickerAreaRef}>
+              <StageClearBanner show={state.showStageClear} stage={state.stage} />
               <ClickerButton onClickAt={handleClickAt} />
               {state.floatingTexts.map(item => (
                 <FloatingText key={item.id} item={item} onRemove={removeFloatingText} />
               ))}
             </div>
 
-            {/* バフ表示 */}
             {(buffs.totalMultiplier.gt(1) || buffs.clickMultiplier.gt(1)) && (
               <div className="buff-display">
                 <span className="buff-item">⚡ クリック: {effectiveClickPower.toFixed(1)}</span>
-                <span className="buff-item">🔮 生産倍率: ×{buffs.totalMultiplier.toFixed(2)}</span>
+                <span className="buff-item">🔮 生産: ×{buffs.totalMultiplier.toFixed(2)}</span>
               </div>
             )}
 
             <section className="buildings-section">
               <h2 className="section-title">🏰 施設</h2>
               <div className="buildings-list">
-                {state.buildings.map(building => (
-                  <BuildingCard
-                    key={building.id}
-                    building={building}
-                    currentSouls={state.souls}
-                    onBuy={buyBuilding}
-                  />
+                {state.buildings.map(b => (
+                  <BuildingCard key={b.id} building={b} currentSouls={state.souls} onBuy={buyBuilding} />
                 ))}
               </div>
             </section>
@@ -124,21 +111,22 @@ export function GameLayout() {
         {/* ===== 転生タブ ===== */}
         {state.activeTab === 'prestige' && (
           <PrestigeTab
-            state={state}
-            buffs={buffs}
-            crystalPreview={crystalPreview}
-            onPrestige={openPrestigeConfirm}
-            onBuyUpgrade={buyPrestigeUpgrade}
+            state={state} buffs={buffs} crystalPreview={crystalPreview}
+            onPrestige={openPrestigeConfirm} onBuyUpgrade={buyPrestigeUpgrade}
+          />
+        )}
+
+        {/* ===== 設定タブ ===== */}
+        {state.activeTab === 'settings' && (
+          <SettingsTab
+            userId={userId} saveStatus={saveStatus}
+            lastSaveTime={state.lastSaveTime}
+            onSave={manualSave} onLoad={manualLoad} onReset={hardReset}
           />
         )}
       </main>
 
-      {/* 下部タブバー */}
-      <TabBar
-        activeTab={state.activeTab}
-        crystals={state.crystals}
-        onTabChange={setTab}
-      />
+      <TabBar activeTab={state.activeTab} crystals={state.crystals} onTabChange={setTab} />
     </div>
   );
 }

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Infinity Soul Clicker</string>
+    <string name="title_activity_main">Infinity Soul Clicker</string>
+    <string name="package_name">com.weatherjavascript.infinitysoulclicker</string>
+    <string name="custom_url_scheme">com.weatherjavascript.infinitysoulclicker</string>
+</resources>
