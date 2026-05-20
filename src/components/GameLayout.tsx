@@ -4,35 +4,50 @@ import { SoulDisplay } from './SoulDisplay';
 import { ClickerButton } from './ClickerButton';
 import { BuildingCard } from './BuildingCard';
 import { FloatingText } from './FloatingText';
+import { StageHeader } from './StageHeader';
+import { EnemyArea } from './EnemyArea';
+import { BossWarning } from './BossWarning';
 
 export function GameLayout() {
-  const { state, totalSps, handleClick, removeFloatingText, buyBuilding } = useGameState();
+  const { state, totalSps, handleClick, removeFloatingText, buyBuilding, retryBoss } = useGameState();
   const clickerAreaRef = useRef<HTMLDivElement>(null);
 
-  const handleClickAt = (x: number, y: number) => {
-    // クリッカーエリア内の座標でフローティングテキストを表示
+  const handleClickAt = (_x: number, _y: number) => {
     if (clickerAreaRef.current) {
       const rect = clickerAreaRef.current.getBoundingClientRect();
-      // 親(clicker-area)内のオフセット + ランダムX揺らし
       const randomOffsetX = (Math.random() - 0.5) * 60;
-      handleClick(
-        rect.width / 2 + randomOffsetX,
-        rect.height / 2 - 20
-      );
-    } else {
-      handleClick(x, y);
+      handleClick(rect.width / 2 + randomOffsetX, rect.height / 2 - 20);
     }
   };
 
+  const isBossPhase =
+    state.battlePhase === 'boss_battle' ||
+    state.battlePhase === 'boss_warning' ||
+    state.battlePhase === 'boss_failed';
+
   return (
-    <div className="game-root">
+    <div className={`game-root ${state.screenFlash ? 'screen-flash' : ''} ${isBossPhase ? 'boss-atmosphere' : ''}`}>
+      {/* ボス警告・敗北オーバーレイ */}
+      <BossWarning
+        battlePhase={state.battlePhase}
+        onRetry={retryBoss}
+        bossStage={state.defeatStage}
+      />
+
       {/* ヘッダー */}
       <header className="game-header">
         <h1 className="game-title">⚔️ SOUL HARVEST ⚔️</h1>
       </header>
 
-      {/* メインコンテンツ */}
       <main className="game-main">
+        {/* ステージヘッダー */}
+        <StageHeader
+          stage={state.stage}
+          killCount={state.killCount}
+          killsToNext={state.killsToNext}
+          battlePhase={state.battlePhase}
+          bossTimeLeft={state.bossTimeLeft}
+        />
 
         {/* ソウル表示 */}
         <SoulDisplay
@@ -41,17 +56,18 @@ export function GameLayout() {
           sps={totalSps}
         />
 
-        {/* クリッカーボタンエリア（フローティングテキスト含む） */}
+        {/* 敵エリア */}
+        <EnemyArea
+          enemy={state.enemy}
+          stage={state.stage}
+          battlePhase={state.battlePhase}
+        />
+
+        {/* クリッカーボタン */}
         <div className="clicker-wrapper" ref={clickerAreaRef}>
           <ClickerButton onClickAt={handleClickAt} />
-
-          {/* フローティングテキスト */}
           {state.floatingTexts.map(item => (
-            <FloatingText
-              key={item.id}
-              item={item}
-              onRemove={removeFloatingText}
-            />
+            <FloatingText key={item.id} item={item} onRemove={removeFloatingText} />
           ))}
         </div>
 
