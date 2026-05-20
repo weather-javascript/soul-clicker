@@ -40,11 +40,8 @@ html, body {
   transition: background 0.5s;
 }
 
-.game-root.boss-atmosphere {
-  background: #180808;
-}
+.game-root.boss-atmosphere { background: #180808; }
 
-/* 撃破フラッシュ */
 .game-root.screen-flash {
   animation: screen-flash 0.3s ease-out;
 }
@@ -59,33 +56,45 @@ html, body {
    ヘッダー
 ======================================== */
 .game-header {
-  background: linear-gradient(180deg, #1a0a2e 0%, #0d0d18 100%);
+  background: linear-gradient(180deg, #1a0a2e, #0d0d18);
   border-bottom: 1px solid #2a1a4a;
   padding: 10px 16px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
 .game-title {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 800;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   background: linear-gradient(90deg, #c084fc, #f0abfc, #a78bfa);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
+.header-crystals {
+  font-size: 13px;
+  font-weight: 700;
+  color: #a78bfa;
+  background: #1a1228;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid #3b1f6e;
+}
+
 /* ========================================
-   メインコンテンツ
+   メイン
 ======================================== */
 .game-main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 0 0 80px;
+  padding: 0 0 64px;
   overflow-y: auto;
 }
 
@@ -123,7 +132,6 @@ html, body {
   color: #5a4a7a;
 }
 
-/* 討伐プログレス */
 .kill-progress {
   display: flex;
   align-items: center;
@@ -152,7 +160,6 @@ html, body {
   text-align: right;
 }
 
-/* ボスタイマー */
 .boss-timer {
   display: flex;
   align-items: center;
@@ -189,7 +196,7 @@ html, body {
 
 @keyframes timer-pulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  50% { opacity: 0.4; }
 }
 
 /* ========================================
@@ -202,7 +209,7 @@ html, body {
 }
 
 .soul-icon {
-  font-size: 22px;
+  font-size: 20px;
   margin-bottom: 2px;
   animation: float 3s ease-in-out infinite;
 }
@@ -213,7 +220,7 @@ html, body {
 }
 
 .soul-count {
-  font-size: 36px;
+  font-size: 34px;
   font-weight: 900;
   line-height: 1;
   background: linear-gradient(135deg, #e879f9, #c084fc, #818cf8);
@@ -239,10 +246,7 @@ html, body {
   color: #6b5a8a;
 }
 
-.soul-stats .sps {
-  color: #a78bfa;
-  font-weight: 600;
-}
+.soul-stats .sps { color: #a78bfa; font-weight: 600; }
 
 /* ========================================
    敵エリア
@@ -262,10 +266,7 @@ html, body {
   box-shadow: 0 0 20px rgba(239, 68, 68, 0.15);
 }
 
-.enemy-area.defeated {
-  opacity: 0.5;
-  transition: opacity 0.3s;
-}
+.enemy-area.defeated { opacity: 0.5; transition: opacity 0.3s; }
 
 .enemy-name-row {
   display: flex;
@@ -274,9 +275,7 @@ html, body {
   margin-bottom: 8px;
 }
 
-.enemy-emoji {
-  font-size: 24px;
-}
+.enemy-emoji { font-size: 24px; }
 
 .enemy-name {
   font-size: 14px;
@@ -285,10 +284,7 @@ html, body {
   flex: 1;
 }
 
-.enemy-name.boss-name {
-  color: #fca5a5;
-  font-size: 16px;
-}
+.enemy-name.boss-name { color: #fca5a5; font-size: 16px; }
 
 .boss-badge {
   font-size: 10px;
@@ -302,11 +298,10 @@ html, body {
 }
 
 @keyframes badge-glow {
-  0%, 100% { box-shadow: 0 0 4px rgba(239, 68, 68, 0.5); }
-  50% { box-shadow: 0 0 12px rgba(239, 68, 68, 0.9); }
+  0%, 100% { box-shadow: 0 0 4px rgba(239,68,68,.5); }
+  50%       { box-shadow: 0 0 12px rgba(239,68,68,.9); }
 }
 
-/* HPバー */
 .hp-bar-wrap {
   height: 10px;
   background: #0a0514;
@@ -323,9 +318,7 @@ html, body {
   transition: width 0.15s ease-out;
 }
 
-.hp-bar.boss-hp-bar {
-  background: linear-gradient(90deg, #dc2626, #ef4444);
-}
+.hp-bar.boss-hp-bar { background: linear-gradient(90deg, #dc2626, #ef4444); }
 
 .hp-bar.low-hp {
   animation: hp-pulse 0.4s ease-in-out infinite;
@@ -336,29 +329,19 @@ html, body {
   50% { opacity: 0.6; }
 }
 
-.hp-text {
-  font-size: 11px;
-  color: #5a4a7a;
-  text-align: right;
-}
-
-.hp-separator {
-  color: #2a1a4a;
-}
-
-.hp-max {
-  color: #4a3a6a;
-}
+.hp-text { font-size: 11px; color: #5a4a7a; text-align: right; }
+.hp-separator { color: #2a1a4a; }
+.hp-max { color: #4a3a6a; }
 
 /* ========================================
-   クリッカーボタン
+   クリッカー
 ======================================== */
 .clicker-wrapper {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 16px 0;
+  padding: 14px 0;
 }
 
 .clicker-area {
@@ -370,8 +353,8 @@ html, body {
 
 .clicker-button {
   position: relative;
-  width: 140px;
-  height: 140px;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
   border: 3px solid #7c3aed;
   background: radial-gradient(circle at 35% 35%, #2d1b69, #1a0d3d, #0a0514);
@@ -379,39 +362,31 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.08s ease, box-shadow 0.08s ease;
-  box-shadow:
-    0 0 30px rgba(124, 58, 237, 0.4),
-    0 0 60px rgba(124, 58, 237, 0.15),
-    inset 0 0 30px rgba(139, 92, 246, 0.1);
+  transition: transform 0.08s, box-shadow 0.08s;
+  box-shadow: 0 0 30px rgba(124,58,237,.4), 0 0 60px rgba(124,58,237,.15), inset 0 0 30px rgba(139,92,246,.1);
   outline: none;
 }
 
-.clicker-button:active,
-.clicker-button.clicked {
+.clicker-button:active, .clicker-button.clicked {
   transform: scale(0.93);
-  box-shadow:
-    0 0 15px rgba(124, 58, 237, 0.6),
-    inset 0 0 20px rgba(139, 92, 246, 0.2);
+  box-shadow: 0 0 15px rgba(124,58,237,.6), inset 0 0 20px rgba(139,92,246,.2);
 }
 
 .clicker-icon {
-  font-size: 64px;
+  font-size: 58px;
   line-height: 1;
-  filter: drop-shadow(0 0 12px rgba(192, 132, 252, 0.8));
-  transition: transform 0.08s ease;
+  filter: drop-shadow(0 0 12px rgba(192,132,252,.8));
+  transition: transform 0.08s;
 }
 
-.clicker-button:active .clicker-icon {
-  transform: scale(0.9);
-}
+.clicker-button:active .clicker-icon { transform: scale(0.9); }
 
 .clicker-ring {
   position: absolute;
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 1px solid rgba(167, 139, 250, 0.3);
+  border: 1px solid rgba(167,139,250,.3);
   animation: ring-pulse 2s ease-in-out infinite;
 }
 
@@ -420,9 +395,26 @@ html, body {
   50% { transform: scale(1.12); opacity: 0; }
 }
 
-.clicker-hint {
-  font-size: 11px;
-  color: #4a3a6a;
+.clicker-hint { font-size: 11px; color: #4a3a6a; }
+
+/* ========================================
+   バフ表示
+======================================== */
+.buff-display {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 4px 14px 6px;
+  flex-wrap: wrap;
+}
+
+.buff-item {
+  font-size: 10px;
+  color: #a78bfa;
+  background: #1a1228;
+  border: 1px solid #2a1a4a;
+  border-radius: 20px;
+  padding: 3px 10px;
 }
 
 /* ========================================
@@ -434,7 +426,7 @@ html, body {
   font-size: 20px;
   font-weight: 900;
   color: #e879f9;
-  text-shadow: 0 0 10px rgba(232, 121, 249, 0.8), 0 2px 4px rgba(0,0,0,0.5);
+  text-shadow: 0 0 10px rgba(232,121,249,.8), 0 2px 4px rgba(0,0,0,.5);
   transform: translateX(-50%);
   animation: float-up 0.9s ease-out forwards;
   z-index: 200;
@@ -442,18 +434,18 @@ html, body {
 }
 
 @keyframes float-up {
-  0%   { opacity: 1; transform: translateX(-50%) translateY(0) scale(0.8); }
+  0%   { opacity: 1; transform: translateX(-50%) translateY(0) scale(.8); }
   20%  { opacity: 1; transform: translateX(-50%) translateY(-10px) scale(1.2); }
-  100% { opacity: 0; transform: translateX(-50%) translateY(-60px) scale(0.9); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-60px) scale(.9); }
 }
 
 /* ========================================
-   ボス警告オーバーレイ
+   ボス警告・敗北オーバーレイ
 ======================================== */
 .boss-warning-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0,0,0,.85);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -462,8 +454,8 @@ html, body {
 }
 
 @keyframes warning-flash {
-  0%, 100% { background: rgba(0, 0, 0, 0.85); }
-  50% { background: rgba(80, 0, 0, 0.9); }
+  0%, 100% { background: rgba(0,0,0,.85); }
+  50% { background: rgba(80,0,0,.9); }
 }
 
 .boss-warning-content {
@@ -478,86 +470,111 @@ html, body {
 }
 
 .boss-warning-text {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 900;
   color: #ef4444;
   letter-spacing: 3px;
-  text-shadow: 0 0 20px rgba(239, 68, 68, 0.8);
+  text-shadow: 0 0 20px rgba(239,68,68,.8);
   margin-bottom: 8px;
 }
 
-.boss-warning-stage {
-  font-size: 18px;
-  font-weight: 700;
-  color: #fca5a5;
-  margin-bottom: 8px;
-}
+.boss-warning-stage { font-size: 16px; font-weight: 700; color: #fca5a5; margin-bottom: 6px; }
+.boss-warning-sub { font-size: 12px; color: #7f1d1d; }
 
-.boss-warning-sub {
-  font-size: 13px;
-  color: #7f1d1d;
-}
-
-/* ボス敗北オーバーレイ */
 .boss-failed-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0,0,0,.9);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
 }
 
-.boss-failed-content {
-  text-align: center;
-  padding: 24px;
-}
-
-.boss-failed-title {
-  font-size: 32px;
-  font-weight: 900;
-  color: #ef4444;
-  margin-bottom: 12px;
-}
-
-.boss-failed-sub {
-  font-size: 14px;
-  color: #fca5a5;
-  margin-bottom: 8px;
-}
-
-.boss-failed-back {
-  font-size: 12px;
-  color: #7f1d1d;
-  margin-bottom: 24px;
-}
+.boss-failed-content { text-align: center; padding: 24px; }
+.boss-failed-title { font-size: 30px; font-weight: 900; color: #ef4444; margin-bottom: 12px; }
+.boss-failed-sub { font-size: 13px; color: #fca5a5; margin-bottom: 6px; }
+.boss-failed-back { font-size: 11px; color: #7f1d1d; margin-bottom: 24px; }
 
 .retry-button {
   background: linear-gradient(135deg, #7c3aed, #5b21b6);
   border: none;
   border-radius: 12px;
   padding: 14px 32px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 800;
   color: #f3e8ff;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.5);
+  box-shadow: 0 4px 20px rgba(124,58,237,.5);
   letter-spacing: 1px;
-  transition: transform 0.1s, box-shadow 0.1s;
+  transition: transform 0.1s;
 }
 
-.retry-button:active {
-  transform: scale(0.96);
-  box-shadow: 0 2px 10px rgba(124, 58, 237, 0.4);
+.retry-button:active { transform: scale(0.96); }
+
+/* ========================================
+   転生確認ダイアログ
+======================================== */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
 }
+
+.confirm-dialog {
+  background: #110e1f;
+  border: 1px solid #3b1f6e;
+  border-radius: 20px;
+  padding: 28px 24px;
+  text-align: center;
+  max-width: 320px;
+  width: 90%;
+  box-shadow: 0 0 40px rgba(124,58,237,.3);
+}
+
+.confirm-icon { font-size: 40px; margin-bottom: 8px; }
+.confirm-title { font-size: 20px; font-weight: 900; color: #c084fc; margin-bottom: 12px; }
+.confirm-body { font-size: 13px; color: #a09aB8; line-height: 1.8; margin-bottom: 20px; }
+.confirm-gain { font-size: 16px; font-weight: 800; color: #a78bfa; }
+
+.confirm-buttons { display: flex; gap: 10px; justify-content: center; }
+
+.confirm-yes {
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  border: none;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #f3e8ff;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.confirm-yes:active { transform: scale(0.96); }
+
+.confirm-no {
+  background: #1a1228;
+  border: 1px solid #2a1a4a;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #6b5a8a;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.confirm-no:active { transform: scale(0.96); }
 
 /* ========================================
    施設セクション
 ======================================== */
-.buildings-section {
-  padding: 0 12px;
-}
+.buildings-section { padding: 0 12px; }
 
 .section-title {
   font-size: 11px;
@@ -570,11 +587,7 @@ html, body {
   margin-bottom: 6px;
 }
 
-.buildings-list {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
+.buildings-list { display: flex; flex-direction: column; gap: 6px; }
 
 .building-card {
   display: flex;
@@ -587,49 +600,14 @@ html, body {
   transition: border-color 0.2s, background 0.2s;
 }
 
-.building-card.can-afford {
-  border-color: #3b1f6e;
-  background: #140f22;
-}
+.building-card.can-afford { border-color: #3b1f6e; background: #140f22; }
 
-.building-emoji {
-  font-size: 28px;
-  width: 36px;
-  text-align: center;
-  flex-shrink: 0;
-}
-
-.building-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.building-name {
-  font-size: 13px;
-  font-weight: 700;
-  color: #d4b8ff;
-  margin-bottom: 2px;
-}
-
-.building-sps {
-  font-size: 10px;
-  color: #5a4a7a;
-}
-
-.building-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
-  flex-shrink: 0;
-}
-
-.building-count {
-  font-size: 20px;
-  font-weight: 900;
-  color: #a78bfa;
-  line-height: 1;
-}
+.building-emoji { font-size: 26px; width: 34px; text-align: center; flex-shrink: 0; }
+.building-info { flex: 1; min-width: 0; }
+.building-name { font-size: 13px; font-weight: 700; color: #d4b8ff; margin-bottom: 2px; }
+.building-sps { font-size: 10px; color: #5a4a7a; }
+.building-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+.building-count { font-size: 18px; font-weight: 900; color: #a78bfa; line-height: 1; }
 
 .buy-button {
   border: none;
@@ -645,12 +623,10 @@ html, body {
 .buy-button.buyable {
   background: linear-gradient(135deg, #7c3aed, #5b21b6);
   color: #f3e8ff;
-  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.4);
+  box-shadow: 0 2px 8px rgba(124,58,237,.4);
 }
 
-.buy-button.buyable:active {
-  transform: scale(0.95);
-}
+.buy-button.buyable:active { transform: scale(0.95); }
 
 .buy-button.not-buyable {
   background: #1a1228;
@@ -659,6 +635,257 @@ html, body {
   opacity: 0.6;
 }
 
-.buy-cost {
-  white-space: nowrap;
+.buy-cost { white-space: nowrap; }
+
+/* ========================================
+   下部タブバー
+======================================== */
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  background: #0d0d18;
+  border-top: 1px solid #1e1433;
+  z-index: 500;
+}
+
+.tab-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 10px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.tab-btn.active { background: #140f22; }
+
+.tab-icon { font-size: 20px; }
+
+.tab-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #5a4a7a;
+  letter-spacing: 1px;
+}
+
+.tab-btn.active .tab-label { color: #a78bfa; }
+
+.tab-badge {
+  position: absolute;
+  top: 8px;
+  right: 28%;
+  background: #7c3aed;
+  color: #f3e8ff;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 5px;
+  border-radius: 10px;
+  min-width: 16px;
+  text-align: center;
+}
+
+/* ========================================
+   転生タブ
+======================================== */
+.prestige-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-bottom: 16px;
+}
+
+/* 結晶表示 */
+.crystal-display {
+  text-align: center;
+  padding: 20px 16px 14px;
+  background: radial-gradient(ellipse at top, #0a1a35 0%, transparent 70%);
+  border-bottom: 1px solid #1a1228;
+}
+
+.crystal-icon { font-size: 36px; margin-bottom: 4px; animation: float 3s ease-in-out infinite; }
+
+.crystal-count {
+  font-size: 40px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #60a5fa, #a78bfa, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.crystal-label { font-size: 11px; color: #5a6a9a; letter-spacing: 4px; text-transform: uppercase; margin-top: 2px; }
+
+.prestige-count-badge {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 10px;
+  color: #a78bfa;
+  background: #1a1228;
+  border: 1px solid #2a1a4a;
+  border-radius: 20px;
+  padding: 3px 10px;
+}
+
+/* 転生プレビュー */
+.prestige-preview {
+  padding: 14px;
+  border-bottom: 1px solid #1a1228;
+}
+
+.preview-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #5a4a7a;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.preview-rows { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+
+.preview-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  background: #0f0c1e;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.preview-row.highlight { background: #1a1035; border: 1px solid #2a1a4a; }
+.preview-row.total { background: #120e28; border: 1px solid #3b1f6e; }
+
+.preview-label { color: #6b5a8a; }
+.preview-value { font-weight: 700; color: #d4b8ff; }
+.crystal-val { color: #a78bfa; }
+.gain-val { color: #60a5fa; font-size: 14px; }
+.total-val { color: #c084fc; font-size: 14px; }
+
+/* 転生ボタン */
+.prestige-btn {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  margin-bottom: 8px;
+}
+
+.prestige-btn.active {
+  background: linear-gradient(135deg, #1d4ed8, #7c3aed, #9333ea);
+  box-shadow: 0 4px 24px rgba(124,58,237,.5);
+}
+
+.prestige-btn.inactive {
+  background: #1a1228;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.prestige-btn.active:active { transform: scale(0.97); }
+
+.prestige-btn-icon { font-size: 24px; }
+.prestige-btn-text { font-size: 16px; font-weight: 900; color: #f3e8ff; letter-spacing: 1px; }
+.prestige-btn-sub { font-size: 12px; color: rgba(243,232,255,.7); }
+
+.prestige-warning {
+  font-size: 10px;
+  color: #4a3a5a;
+  text-align: center;
+}
+
+/* ========================================
+   永続ショップ
+======================================== */
+.prestige-shop { padding: 14px; }
+
+.shop-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #5a4a7a;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #1a1228;
+}
+
+.shop-list { display: flex; flex-direction: column; gap: 8px; }
+
+.shop-card {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #1e1433;
+  background: #110e1f;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.shop-card.can-buy { border-color: #1d4ed8; background: #0f1228; }
+.shop-card.maxed { border-color: #3b1f6e; opacity: 0.7; }
+
+.shop-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.shop-emoji { font-size: 26px; flex-shrink: 0; }
+
+.shop-info { flex: 1; min-width: 0; }
+.shop-name { font-size: 13px; font-weight: 700; color: #d4b8ff; margin-bottom: 2px; }
+.shop-desc { font-size: 10px; color: #5a4a7a; line-height: 1.4; }
+
+.shop-level { text-align: right; flex-shrink: 0; }
+.level-num { font-size: 20px; font-weight: 900; color: #a78bfa; }
+.level-max { font-size: 11px; color: #3d2e5e; }
+
+.shop-buy-btn {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.1s;
+  outline: none;
+}
+
+.shop-buy-btn.buyable {
+  background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+  color: #eff6ff;
+  box-shadow: 0 2px 8px rgba(29,78,216,.4);
+}
+
+.shop-buy-btn.buyable:active { transform: scale(0.97); }
+
+.shop-buy-btn:not(.buyable):not(.maxed-btn) {
+  background: #1a1228;
+  color: #3d2e5e;
+  cursor: not-allowed;
+}
+
+.shop-buy-btn.maxed-btn {
+  background: #1a1228;
+  color: #5a4a7a;
+  cursor: default;
+  letter-spacing: 1px;
 }

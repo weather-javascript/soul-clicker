@@ -24,26 +24,50 @@ export interface Enemy {
 }
 
 export type BattlePhase =
-  | 'normal'       // 通常ステージ
-  | 'boss_warning' // ボス警告演出中（2秒）
-  | 'boss_battle'  // ボス戦中
-  | 'boss_failed'  // ボス敗北
-  | 'stage_clear'; // ステージクリア演出中
+  | 'normal'
+  | 'boss_warning'
+  | 'boss_battle'
+  | 'boss_failed'
+  | 'stage_clear';
+
+export type TabType = 'main' | 'prestige';
+
+// 永続アップグレード定義
+export interface PrestigeUpgrade {
+  id: string;
+  name: string;
+  emoji: string;
+  description: string;
+  baseCost: number;       // 結晶コスト（初期）
+  level: number;
+  maxLevel: number;
+  // コスト計算: baseCost * (level + 1) で線形増加
+}
 
 export interface GameState {
+  // リソース
   souls: Decimal;
-  totalSouls: Decimal;
-  clickPower: Decimal;
+  totalSoulsEver: Decimal;   // 累計（転生しても減らない）
+  clickPower: Decimal;       // base click power（バフ前）
   buildings: Building[];
   floatingTexts: FloatingTextItem[];
-  // ステージ関連
+
+  // ステージ・戦闘
   stage: number;
-  killCount: number;        // 現ステージの討伐数
-  killsToNext: number;      // 次ステージまでの討伐数（通常10）
+  killCount: number;
+  killsToNext: number;
   enemy: Enemy;
   battlePhase: BattlePhase;
-  bossTimeLeft: number;     // ボス残り秒数
-  defeatStage: number;      // ボス敗北時に戻るステージ
-  // エフェクト
+  bossTimeLeft: number;
+  defeatStage: number;
   screenFlash: boolean;
+
+  // プレステージ
+  crystals: number;          // 所持次元結晶
+  prestigeUpgrades: PrestigeUpgrade[];
+  prestigeCount: number;     // 転生回数（演出用）
+
+  // UI
+  activeTab: TabType;
+  showPrestigeConfirm: boolean;
 }
